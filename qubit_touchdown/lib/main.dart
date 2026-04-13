@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final game = Provider.of<GameProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF0B0E14),
       body: Stack(
         children: [
           Padding(
@@ -214,173 +214,195 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned.fill(
               child: Container(
                 color: Colors.black.withAlpha(242),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (game.status == GameStatus.touchdown) ...[
-                        const Text(
-                          "TOUCHDOWN!",
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
+                child: SafeArea(
+                  child: LayoutBuilder(
+                   builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight:
+                                constraints
+                                    .maxHeight, 
                           ),
-                        ),
-                        const SizedBox(height: 15),
-                        Column(
-                          children: [
-                            const Text(
-                              "IDEAL LOGIC",
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
+                          child: IntrinsicHeight(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  if (game.status == GameStatus.touchdown) ...[
+                                    const Text(
+                                      "TOUCHDOWN!",
+                                      style: TextStyle(
+                                        color: Colors.orange,
+                                        fontSize: 36,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          "IDEAL LOGIC",
+                                          style: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        _buildCircuitDisplay(game.idealCircuit),
+                                        if (game.transpiledCircuit != null) ...[
+                                          const SizedBox(height: 10),
+                                          const Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.white24,
+                                            size: 16,
+                                          ),
+                                          const Text(
+                                            "TRANSPILED CIRCUIT",
+                                            style: TextStyle(
+                                              color: Colors.purpleAccent,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5),
+                                          _buildCircuitDisplay(game.transpiledCircuit),
+                                        ],
+                            
+                                                    
+                            
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      "${game.lastScorerName} Scored!",
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    const Text(
+                                      "VIEW ON FAKE PROVIDER - SIMULATOR:",
+                                      style: TextStyle(color: Colors.white70, fontSize: 13),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        _backendButton(
+                                          context,
+                                          game,
+                                          "Reset",
+                                          null,
+                                          Colors.grey,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        _backendButton(
+                                          context,
+                                          game,
+                                          "IBM Osaka",
+                                          "osaka",
+                                          Colors.purple,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        _backendButton(
+                                          context,
+                                          game,
+                                          "IBM Kyoto",
+                                          "kyoto",
+                                          Colors.blue,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 30),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 40,
+                                          vertical: 15,
+                                        ),
+                                      ),
+                                      onPressed: () => game.performKickoffToss(),
+                                      child: const Text(
+                                        "TOSS FOR KICKOFF",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ),
+                                  ],
+                                  if (game.status == GameStatus.tossing) ...[
+                                    if (game.currentPos == '+' ||
+                                        game.currentPos == '−') ...[
+                                      Lottie.asset(
+                                        'assets/coin_flip.json',
+                                        width: 200,
+                                        height: 200,
+                                      ),
+                                      const SizedBox(height: 20),
+                                      const Text(
+                                        "KICKING OFF...",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 22,
+                                          letterSpacing: 2,
+                                        ),
+                                      ),
+                                    ] else ...[
+                                      const Text(
+                                        "MEASURING...",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          letterSpacing: 6,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 50),
+                                      Text(
+                                        "|${game.tossResult}⟩",
+                                        style: const TextStyle(
+                                          color: Colors.white38,
+                                          fontSize: 130,
+                                          fontFamily: 'monospace',
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                  if (game.status == GameStatus.tossResult) ...[
+                                    Text(
+                                      (game.currentPos == '0' || game.currentPos == '1')
+                                          ? "RESULT:"
+                                          : "MEASUREMENT COLLAPSED:",
+                                      style: const TextStyle(
+                                        color: Colors.greenAccent,
+                                        fontSize: 18,
+                                        letterSpacing: 2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      "|${game.tossResult}⟩",
+                                      style: const TextStyle(
+                                        color: Colors.greenAccent,
+                                        fontSize: 100,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'monospace',
+                                        shadows: [
+                                          Shadow(color: Colors.greenAccent, blurRadius: 40),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ],
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            _buildCircuitDisplay(game.idealCircuit),
-                            if (game.transpiledCircuit != null) ...[
-                              const SizedBox(height: 10),
-                              const Icon(
-                                Icons.arrow_downward,
-                                color: Colors.white24,
-                                size: 16,
-                              ),
-                              const Text(
-                                "TRANSPILED CIRCUIT",
-                                style: TextStyle(
-                                  color: Colors.purpleAccent,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              _buildCircuitDisplay(game.transpiledCircuit),
-                            ],
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "${game.lastScorerName} Scored!",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "VIEW ON FAKE PROVIDER - SIMULATOR:",
-                          style: TextStyle(color: Colors.white70, fontSize: 13),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _backendButton(
-                              context,
-                              game,
-                              "Reset",
-                              null,
-                              Colors.grey,
-                            ),
-                            const SizedBox(width: 8),
-                            _backendButton(
-                              context,
-                              game,
-                              "IBM Osaka",
-                              "osaka",
-                              Colors.purple,
-                            ),
-                            const SizedBox(width: 8),
-                            _backendButton(
-                              context,
-                              game,
-                              "IBM Kyoto",
-                              "kyoto",
-                              Colors.blue,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 30),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 15,
-                            ),
-                          ),
-                          onPressed: () => game.performKickoffToss(),
-                          child: const Text(
-                            "TOSS FOR KICKOFF",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                      if (game.status == GameStatus.tossing) ...[
-                        if (game.currentPos == '+' ||
-                            game.currentPos == '−') ...[
-                          Lottie.asset(
-                            'assets/coin_flip.json',
-                            width: 200,
-                            height: 200,
-                          ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            "KICKING OFF...",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              letterSpacing: 2,
-                            ),
-                          ),
-                        ] else ...[
-                          const Text(
-                            "MEASURING...",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              letterSpacing: 6,
-                            ),
-                          ),
-                          const SizedBox(height: 50),
-                          Text(
-                            "|${game.tossResult}⟩",
-                            style: const TextStyle(
-                              color: Colors.white38,
-                              fontSize: 130,
-                              fontFamily: 'monospace',
-                            ),
-                          ),
-                        ],
-                      ],
-                      if (game.status == GameStatus.tossResult) ...[
-                        Text(
-                          (game.currentPos == '0' || game.currentPos == '1')
-                              ? "KICKOFF RESULT:"
-                              : "MEASUREMENT COLLAPSED:",
-                          style: const TextStyle(
-                            color: Colors.greenAccent,
-                            fontSize: 18,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        Text(
-                          "|${game.tossResult}⟩",
-                          style: const TextStyle(
-                            color: Colors.greenAccent,
-                            fontSize: 100,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'monospace',
-                            shadows: [
-                              Shadow(color: Colors.greenAccent, blurRadius: 40),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ],
+                      );
+                    }
                   ),
                 ),
               ),

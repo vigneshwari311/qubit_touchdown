@@ -22,9 +22,8 @@ class GameProvider extends ChangeNotifier {
   GameStatus _status = GameStatus.playing;
   String _tossResult = "";
   String _lastScorerName = "";
-  String? _idealCircuit; 
-  String?
-  _transpiledCircuit; 
+  String? _idealCircuit;
+  String? _transpiledCircuit; 
 
   // getters 
   String get currentPos => _currentPos;
@@ -133,6 +132,8 @@ class GameProvider extends ChangeNotifier {
         _transpiledCircuit = data['transpiled_image']; 
         notifyListeners();
       }
+
+      
     } catch (e) {
       debugPrint("Error fetching hardware transpilation: $e");
     }
@@ -153,7 +154,7 @@ class GameProvider extends ChangeNotifier {
     _status = GameStatus.playing;
     _currentDriveGates = [];
     _idealCircuit = null;
-    _transpiledCircuit = null;
+   _transpiledCircuit = null;
 
     _finalizeTurn("");
   }

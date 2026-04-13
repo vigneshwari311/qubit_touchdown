@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class QubitNode extends StatelessWidget {
   final String label;
   final bool isActive;
-  final double radius; 
+  final double radius;
 
   const QubitNode({
     super.key,
@@ -24,9 +24,9 @@ class QubitNode extends StatelessWidget {
             isActive
                 ? [
                   BoxShadow(
-                    color: Colors.orange.withAlpha(1),
-                    blurRadius: 20,
-                    spreadRadius: 5,
+                    color: Color(0xFF00F5FF),
+                    blurRadius: 10,
+                    spreadRadius: 2,
                   ),
                 ]
                 : [],
