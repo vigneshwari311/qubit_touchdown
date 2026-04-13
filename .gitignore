@@ -1,0 +1,15 @@
+# IDEs and Tools
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Flutter specific extras
+.pub-cache/
+.pub/
+architecture.png  # (Unless you want to keep your diagrams in Git)
+
+# Python specific extras
+.env
+.pytest_cache/
