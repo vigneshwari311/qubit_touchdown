@@ -6,7 +6,7 @@ Qubit Touchdown is a digital implementation of the quantum board game by Profess
 > [Qubit Touchdown - A Quantum Computing Board Game by Tom Wong](https://youtu.be/_289qVBOvgM)
 
 ## DEMO VIDEO:
-> https://drive.google.com/file/d/1r2eRq9WvLmYqWSi9kH-Sv7jZSeiTMT19/view?usp=sharing)
+> https://drive.google.com/file/d/1r2eRq9WvLmYqWSi9kH-Sv7jZSeiTMT19/view?usp=sharing
 
 ## How to Play
 
