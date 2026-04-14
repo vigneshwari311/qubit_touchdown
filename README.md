@@ -1,11 +1,12 @@
 
 
-Uploading 0414.mp4…
-
 # **QUBIT TOUCHDOWN**
 
 Qubit Touchdown is a digital implementation of the quantum board game by Professor Thomas G. Wong. It translates the rules of American Football into the logic of the Bloch Sphere. You can watch his detailed explanation of the rules and the quantum physics involved here: 
 > [Qubit Touchdown - A Quantum Computing Board Game by Tom Wong](https://youtu.be/_289qVBOvgM)
+
+## DEMO VIDEO:
+> [Qubit Touchdown]([https://youtu.be/_289qVBOvgM](https://drive.google.com/file/d/1r2eRq9WvLmYqWSi9kH-Sv7jZSeiTMT19/view?usp=sharing))
 
 ## How to Play
 
