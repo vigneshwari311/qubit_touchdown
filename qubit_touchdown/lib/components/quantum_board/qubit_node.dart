@@ -9,7 +9,7 @@ class QubitNode extends StatelessWidget {
     super.key,
     required this.label,
     required this.isActive,
-    this.radius = 30,
+    required this.radius,
   });
 
   @override
