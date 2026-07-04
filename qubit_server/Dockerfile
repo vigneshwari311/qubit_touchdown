@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["gunicorn", "-w", "1", "--threads", "4", "-b", "0.0.0.0:8080", "--timeout", "120", "app:app"]
+CMD gunicorn -w 1 --threads 4 -b 0.0.0.0:${PORT:-8080} --timeout 120 app:app
