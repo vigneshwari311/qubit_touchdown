@@ -7,12 +7,29 @@ import 'package:qubit_touchdown/components/player_score_card.dart';
 import 'package:qubit_touchdown/components/quantum_board/quantum_board.dart';
 import 'package:qubit_touchdown/components/touchdown_transition.dart';
 import 'package:qubit_touchdown/components/turn_handoff_overlay.dart';
+import 'package:qubit_touchdown/components/welcome_notice_dialog.dart';
 import 'package:qubit_touchdown/provider/game.dart';
 import 'package:qubit_touchdown/screens/measurement_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (context) => const WelcomeNoticeDialog(),
+      );
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     final game = context.watch<GameProvider>();
